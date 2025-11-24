@@ -1,202 +1,259 @@
-// ===============================================
-// 1. BASE DE DATOS DE PRODUCTOS (SIMULACIÓN JSON)
-// ===============================================
-
-let productos = []; 
-
-// Función que simula la carga de datos (como si fuera un archivo JSON o una API)
-async function obtenerProductos() {
-    // Usamos los datos internos para simular la respuesta del servidor:
-    productos = [
-        { id: "PC001", nombre: "Curso: Procesadores", precio: 12000, descuento: 10, imagen: "imagenes/Procesadores.jpg", descripcion: "Descubre la arquitectura interna, núcleos, hilos y el impacto de la velocidad de reloj en el rendimiento de un CPU moderno." },
-        { id: "PC002", nombre: "Curso: Memoria RAM", precio: 9800, descuento: 15, imagen: "imagenes/memoria-ram.jpg", descripcion: "Claves sobre latencia, velocidad y tipos (DDR4, DDR5) para optimizar cualquier sistema operativo y su desempeño en tareas simultáneas." },
-        { id: "PC003", nombre: "Curso: Placa Madre", precio: 14500, descuento: 20, imagen: "imagenes/motherboard.jpg", descripcion: "Conoce los sockets, chipsets y cómo elegir la placa base ideal para tu procesador, garantizando compatibilidad y futuro crecimiento." },
-        { id: "PC004", nombre: "Curso: Discos SSD", precio: 11000, descuento: 5, imagen: "imagenes/SSD.jpg", descripcion: "De SATA a NVMe: aprende sobre la tecnología de almacenamiento más rápida y confiable del mercado, fundamental para la velocidad del sistema." },
-        { id: "PC005", nombre: "Curso: Fuentes", precio: 10500, descuento: 10, imagen: "imagenes/Fuente.jpg", descripcion: "Conceptos de potencia (Watts), eficiencia y certificaciones (80 PLUS) para armados seguros y estables. ¡La base de cualquier PC!" },
-        { id: "PC006", nombre: "Curso: Placa de Video", precio: 18000, descuento: 12, imagen: "imagenes/Placa-de-video.jpg", descripcion: "Domina las especificaciones clave (VRAM, bus) y las diferencias entre NVIDIA y AMD para gaming o trabajo profesional en 3D." }
-    ];
-}
-
-
-// ===============================================
-// 2. REFERENCIAS Y VARIABLES DE ESTADO
-// ===============================================
-
+// ===============================
+// ESTADO GLOBAL
+// ===============================
+let productos = [];
 let carrito = [];
 
-const contenedorProductos = document.querySelector('.contenedor-productos');
-const mostrarCarritoBtn = document.getElementById('mostrar-carrito-btn');
-const panelCarritoOculto = document.getElementById('panel-carrito-oculto');
-const cerrarCarritoBtn = document.getElementById('cerrar-carrito-btn');
-const listaCarrito = document.getElementById('lista-carrito');
-const totalCarrito = document.getElementById('total-carrito');
-const vaciarCarritoBtn = document.getElementById('vaciar-carrito-btn');
-const contadorCarrito = document.getElementById('contador-carrito');
+document.addEventListener("DOMContentLoaded", async () => {
+  // REFERENCIAS DOM
+  const contenedorProductos = document.querySelector(".contenedor-productos");
+  const mostrarCarritoBtn = document.getElementById("mostrar-carrito-btn");
+  const panelCarritoOculto = document.getElementById("panel-carrito-oculto");
+  const cerrarCarritoBtn = document.getElementById("cerrar-carrito-btn");
+  const listaCarrito = document.getElementById("lista-carrito");
+  const totalCarrito = document.getElementById("total-carrito");
+  const vaciarCarritoBtn = document.getElementById("vaciar-carrito-btn");
+  const contadorCarrito = document.getElementById("contador-carrito");
 
+  // MODAL INFO (inyectado)
+  crearModalInfo();
 
-// ===============================================
-// 3. GESTIÓN DE EVENTOS INICIALES
-// ===============================================
+  // STORAGE
+  cargarCarritoStorage();
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cargamos los datos (simulando API) y luego generamos el HTML
-    obtenerProductos().then(() => {
-        cargarProductosHTML(); 
-        actualizarCarritoHTML();
-    });
+  // CARGA DE PRODUCTOS DESDE JSON
+  await obtenerProductos();
+  cargarProductosHTML(contenedorProductos);
+  actualizarCarritoHTML(listaCarrito, totalCarrito, contadorCarrito);
+
+  // EVENTOS PRODUCTOS (delegación)
+  contenedorProductos.addEventListener("click", (e) => {
+    // INFO
+    const btnInfo = e.target.closest("button.info-btn");
+    if (btnInfo) {
+      const id = btnInfo.dataset.id || btnInfo.dataset.sku;
+      mostrarInfoSKU(id);
+      return;
+    }
+
+    // COMPRAR
+    const btnComprar = e.target.closest("button.comprar-btn, button.btn-comprar");
+    if (btnComprar) {
+      const id = btnComprar.dataset.id || btnComprar.dataset.sku;
+      agregarCurso(id, listaCarrito, totalCarrito, contadorCarrito);
+      return;
+    }
+  });
+
+  // EVENTOS CARRITO
+  mostrarCarritoBtn.addEventListener("click", () => togglePanelCarrito(panelCarritoOculto));
+  cerrarCarritoBtn.addEventListener("click", () => togglePanelCarrito(panelCarritoOculto));
+  vaciarCarritoBtn.addEventListener("click", () => vaciarCarrito(listaCarrito, totalCarrito, contadorCarrito));
+  document.addEventListener("click", (e) => cerrarPanelFuera(e, panelCarritoOculto));
+
+  // DROPDOWN MOBILE + SUBDROPDOWN
+  initDropdownMobile();
 });
 
-// Event listeners
-contenedorProductos.addEventListener('click', agregarCurso);
-mostrarCarritoBtn.addEventListener('click', togglePanelCarrito);
-cerrarCarritoBtn.addEventListener('click', togglePanelCarrito);
-vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-document.addEventListener('click', cerrarPanelFuera);
+
+// OBTENER PRODUCTOS DESDE productos.json
+async function obtenerProductos() {
+  try {
+    const res = await fetch("productos.json");
+    productos = await res.json();
+  } catch (err) {
+    console.error("Error cargando productos.json", err);
+    productos = [];
+    alert("No pude cargar productos.json. Abrí la web con Live Server.");
+  }
+}
 
 
-// ===============================================
-// 4. FUNCIONES DE PRODUCTOS Y VISTA
-// ===============================================
+// RENDER HTML DE PRODUCTOS
+function cargarProductosHTML(contenedorProductos) {
+  contenedorProductos.innerHTML = "";
 
-/**
- * Genera el HTML de las tarjetas de producto usando el array `productos`.
- */
-function cargarProductosHTML() {
-    contenedorProductos.innerHTML = ''; 
-    productos.forEach(producto => {
-        const divProducto = document.createElement('div');
-        divProducto.classList.add('producto');
-        
-        // Calcular el precio final con descuento
-        const precioFinal = producto.precio * (1 - producto.descuento / 100);
+  productos.forEach((producto) => {
+    const divProducto = document.createElement("div");
+    divProducto.classList.add("producto");
 
-        divProducto.innerHTML = `
-            <div class="descuento">${producto.descuento}% OFF</div>
-            <img src="${producto.imagen}" alt="${producto.nombre}">
-            <h3>${producto.nombre}</h3>
-            <p>SKU: ${producto.id}</p>
-            <p class="precio">$${precioFinal.toLocaleString('es-AR')}</p>
-            
-            <button data-id="${producto.id}">Comprar</button>
-        `;
+    const precioFinal = Math.round(producto.precio * (1 - producto.descuento / 100));
 
-        contenedorProductos.appendChild(divProducto);
+    divProducto.innerHTML = `
+      <div class="descuento">${producto.descuento}% OFF</div>
+      <img src="${producto.imagen}" alt="${producto.nombre}">
+      <h3>${producto.nombre}</h3>
+      <p>SKU: ${producto.id}</p>
+      <p class="precio">$${precioFinal.toLocaleString("es-AR")}</p>
+
+      <div style="display:flex; gap:8px; justify-content:center;">
+        <button type="button" class="info-btn"
+          data-id="${producto.id}" data-sku="${producto.id}">
+          Info
+        </button>
+
+        <button type="button" class="comprar-btn"
+          data-id="${producto.id}" data-sku="${producto.id}">
+          Comprar
+        </button>
+      </div>
+    `;
+
+    contenedorProductos.appendChild(divProducto);
+  });
+}
+
+
+// AGREGAR CURSO AL CARRITO
+function agregarCurso(idCurso, listaCarrito, totalCarrito, contadorCarrito) {
+  const cursoSeleccionado = productos.find((p) => p.id === idCurso);
+  if (!cursoSeleccionado) {
+    console.error("No encontré producto para comprar:", idCurso);
+    return;
+  }
+
+  const precioFinal = Math.round(cursoSeleccionado.precio * (1 - cursoSeleccionado.descuento / 100));
+  const existe = carrito.some((c) => c.id === idCurso);
+
+  if (existe) {
+    carrito = carrito.map((c) =>
+      c.id === idCurso ? { ...c, cantidad: c.cantidad + 1 } : c
+    );
+  } else {
+    carrito.push({
+      id: cursoSeleccionado.id,
+      nombre: cursoSeleccionado.nombre,
+      precio: precioFinal,
+      cantidad: 1,
     });
+  }
+
+  actualizarCarritoHTML(listaCarrito, totalCarrito, contadorCarrito);
+  guardarCarritoStorage();
 }
 
-/**
- * Se ejecuta al hacer clic en un botón "Comprar".
- */
-function agregarCurso(e) {
-    if (e.target.tagName === 'BUTTON' && e.target.textContent === 'Comprar') {
-        const idCurso = e.target.getAttribute('data-id');
-        
-        // Buscar el producto completo en nuestra base de datos
-        const cursoSeleccionado = productos.find(p => p.id === idCurso);
 
-        if (cursoSeleccionado) {
-            const precioFinal = cursoSeleccionado.precio * (1 - cursoSeleccionado.descuento / 100);
+// ACTUALIZAR CARRITO EN HTML
+function actualizarCarritoHTML(listaCarrito, totalCarrito, contadorCarrito) {
+  limpiarHTML(listaCarrito);
 
-            const infoCurso = {
-                id: cursoSeleccionado.id,
-                nombre: cursoSeleccionado.nombre,
-                precio: precioFinal, 
-                cantidad: 1, 
-            };
-            
-            const existe = carrito.some(curso => curso.id === infoCurso.id);
-            
-            if (existe) {
-                carrito = carrito.map(curso => {
-                    if (curso.id === infoCurso.id) {
-                        curso.cantidad++;
-                        return curso; 
-                    } else {
-                        return curso; 
-                    }
-                });
-            } else {
-                carrito.push(infoCurso);
-            }
-            
-            actualizarCarritoHTML();
-        }
+  let total = 0;
+  let cantidadTotalCursos = 0;
+
+  if (carrito.length === 0) {
+    listaCarrito.innerHTML = "<p>El carrito está vacío.</p>";
+  } else {
+    carrito.forEach((curso) => {
+      const subtotal = curso.precio * curso.cantidad;
+      total += subtotal;
+      cantidadTotalCursos += curso.cantidad;
+
+      const div = document.createElement("div");
+      div.classList.add("item-carrito");
+      div.innerHTML = `
+        <p>
+          ${curso.cantidad} x ${curso.nombre}
+          <span style="font-weight:bold;">($${subtotal.toLocaleString("es-AR")})</span>
+        </p>
+      `;
+      listaCarrito.appendChild(div);
+    });
+  }
+
+  totalCarrito.textContent = `$${total.toLocaleString("es-AR")}`;
+  contadorCarrito.textContent = cantidadTotalCursos;
+}
+
+
+// VISIBILIDAD CARRITO
+function togglePanelCarrito(panelCarritoOculto) {
+  const isVisible = panelCarritoOculto.style.display === "block";
+  panelCarritoOculto.style.display = isVisible ? "none" : "block";
+}
+
+function cerrarPanelFuera(e, panelCarritoOculto) {
+  const carritoFlotante = document.getElementById("carrito-flotante");
+  if (carritoFlotante && !carritoFlotante.contains(e.target)) {
+    panelCarritoOculto.style.display = "none";
+  }
+}
+
+function vaciarCarrito(listaCarrito, totalCarrito, contadorCarrito) {
+  if (confirm("¿Vaciar carrito?")) {
+    carrito = [];
+    actualizarCarritoHTML(listaCarrito, totalCarrito, contadorCarrito);
+    guardarCarritoStorage();
+  }
+}
+
+function limpiarHTML(el) {
+  while (el.firstChild) el.removeChild(el.firstChild);
+}
+
+
+// LOCALSTORAGE
+function guardarCarritoStorage() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function cargarCarritoStorage() {
+  const data = localStorage.getItem("carrito");
+  carrito = data ? JSON.parse(data) : [];
+}
+
+
+// MODAL INFO SKU
+function crearModalInfo() {
+  const modal = document.createElement("div");
+  modal.id = "modal-info";
+  modal.className = "modal-info";
+  modal.innerHTML = `
+    <div class="modal-info-content">
+      <button id="cerrar-modal-info" class="cerrar-modal">✕</button>
+      <h3 id="modal-info-titulo"></h3>
+      <p id="modal-info-desc"></p>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target.id === "modal-info" || e.target.id === "cerrar-modal-info") {
+      modal.classList.remove("activo");
+      modal.style.display = "none";
     }
+  });
 }
 
-/**
- * Pinta el contenido del array 'carrito' en el HTML y calcula el total.
- */
-function actualizarCarritoHTML() {
-    limpiarHTML(listaCarrito); 
+function mostrarInfoSKU(id) {
+  const prod = productos.find((p) => p.id === id);
 
-    let total = 0;
-    let cantidadTotalCursos = 0;
+  if (!prod) {
+    console.error("No encontré el producto con id/sku:", id, productos);
+    alert("No se encontró información para este SKU.");
+    return;
+  }
 
-    if (carrito.length === 0) {
-        listaCarrito.innerHTML = '<p>El carrito está vacío.</p>';
-    } else {
-        carrito.forEach(curso => {
-            const { nombre, precio, cantidad } = curso;
+  const descripcion =
+    prod.descripcion || prod.description || prod.detalle || "Sin descripción disponible.";
 
-            const subtotal = precio * cantidad;
-            total += subtotal;
-            cantidadTotalCursos += cantidad;
+  document.getElementById("modal-info-titulo").textContent = prod.nombre;
+  document.getElementById("modal-info-desc").textContent = descripcion;
 
-            const div = document.createElement('div');
-            div.classList.add('item-carrito');
-            div.innerHTML = `
-                <p>
-                    ${cantidad} x ${nombre} 
-                    <span style="font-weight: bold;">($${subtotal.toLocaleString('es-AR')})</span>
-                </p>
-            `;
-
-            listaCarrito.appendChild(div);
-        });
-    }
-
-    totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`; 
-    contadorCarrito.textContent = cantidadTotalCursos; 
+  const modal = document.getElementById("modal-info");
+  modal.classList.add("activo");
+  modal.style.display = "flex"; // fallback visual por si el CSS no cargó
 }
 
 
-// ===============================================
-// 5. FUNCIONES DE VISIBILIDAD Y AUXILIARES
-// ===============================================
+// DROPDOWN MOBILE + SUBDROPDOWN
+function initDropdownMobile() {
+  document.querySelectorAll(".dropdown > a, .dropdown-sub > a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const menu = link.nextElementSibling;
+      if (!menu) return;
 
-/**
- * Muestra u oculta el panel del carrito flotante.
- */
-function togglePanelCarrito() {
-    const isVisible = panelCarritoOculto.style.display === 'block';
-    panelCarritoOculto.style.display = isVisible ? 'none' : 'block';
-}
-
-/**
- * Cierra el panel del carrito si se hace clic fuera de él.
- */
-function cerrarPanelFuera(e) {
-    if (!document.getElementById('carrito-flotante').contains(e.target)) {
-        panelCarritoOculto.style.display = 'none';
-    }
-}
-
-/**
- * Vacía el array del carrito y actualiza el HTML.
- */
-function vaciarCarrito() {
-    if (confirm("¿Estás seguro de que quieres vaciar el carrito?")) {
-        carrito = []; 
-        actualizarCarritoHTML(); 
-    }
-}
-
-/**
- * Función auxiliar para limpiar el contenido de un elemento HTML.
- */
-function limpiarHTML(elemento) {
-    while (elemento.firstChild) {
-        elemento.removeChild(elemento.firstChild);
-    }
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    });
+  });
 }

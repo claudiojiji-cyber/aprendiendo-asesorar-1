@@ -1,8 +1,8 @@
 /* ----- ESTILOS GENERALES DEL SITIO -----*/
 body {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
     margin: 0;
-    background-color: #f7f7f7; 
+    background-color: #f7f7f7;
     color: #333;
 }
 
@@ -11,32 +11,29 @@ header {
     background-color: #1e3a8a; /* Azul Marino Oscuro */
     color: white;
     padding: 15px;
-    text-align: center; 
-    position: sticky; 
-    top: 0;           
-    z-index: 990;     
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 990;
 }
-header h1 {
-    margin: 0;
-}
-
+header h1 { margin: 0; }
 
 /* ---- MENÚ DE NAVEGACIÓN (Sticky Nav) ----*/
 .Navegacion {
     background-color: #004aad; /* Azul intermedio */
     padding: 10px 0;
-    position: sticky; 
-    top: 61px; /* Ajuste para que se pegue justo debajo del header */
+    position: sticky;
+    top: 61px;
     z-index: 990;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 nav ul {
-    list-style: none; 
+    list-style: none;
     padding: 0;
-    display: flex; 
-    justify-content: center; 
-    gap: 30px; 
+    display: flex;
+    justify-content: center;
+    gap: 30px;
 }
 
 nav li {
@@ -53,33 +50,33 @@ nav a {
 }
 
 nav a:hover {
-    color: #ff7f50; /* Naranja fuerte como acento */
+    color: #ff7f50;
     text-decoration: underline;
 }
 
-/* --- DROP DOWN (Desplegable) --- */
+/* --- DROP DOWN (Desplegable principal) --- */
 .dropdown {
-    position: relative; 
+    position: relative;
     display: inline-block;
 }
 
 .dropdown-content {
-    display: none; 
+    display: none;
     position: absolute;
-    background-color: #004aad; 
+    background-color: #004aad;
     min-width: 180px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-    z-index: 1001; 
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+    z-index: 1001;
     padding: 0;
-    margin-top: 0; 
-    top: 100%; 
-    border-radius: 0 0 5px 5px; 
+    margin-top: 0;
+    top: 100%;
+    border-radius: 0 0 5px 5px;
     text-align: left;
 }
 
 .dropdown-content li {
-    display: block; 
-    padding: 0; 
+    display: block;
+    padding: 0;
 }
 
 .dropdown-content a {
@@ -90,7 +87,7 @@ nav a:hover {
 }
 
 .dropdown-content a:hover {
-    background-color: #003580; 
+    background-color: #003580;
     color: #ff7f50 !important;
 }
 
@@ -98,20 +95,66 @@ nav a:hover {
     display: block;
 }
 
+/* =============================== */
+/* SUB-DROPDOWN (Hardware dentro de Cursos) */
+/* =============================== */
+.dropdown-sub { position: relative; }
+
+.dropdown-subcontent {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    min-width: 200px;
+    background-color: #003580;
+    border-radius: 0 5px 5px 5px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+    z-index: 1002;
+    padding: 0;
+}
+
+.dropdown-subcontent li a {
+    display: block;
+    padding: 10px 15px;
+    color: #fff;
+    font-weight: normal;
+}
+
+.dropdown-subcontent li a:hover {
+    background-color: #002a66;
+    color: #ff7f50;
+}
+
+.dropdown-sub:hover .dropdown-subcontent {
+    display: block;
+}
+
+/* =============================== */
+/* CATEGORÍAS VISUALES EN MENÚ */
+/* =============================== */
+.dropdown-content a.categoria {
+    background: #0b3a7a;
+    color: #fff !important;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.dropdown-content a.categoria:hover {
+    background: #072e63;
+}
 
 /* ---- SECCIÓN INICIO / BANNER ----*/
 .banner {
     text-align: center;
     padding: 60px;
-    background-color: #e6f3ff; 
-    color: #003580; 
+    background-color: #e6f3ff;
+    color: #003580;
 }
 
 /* ---- SECCIÓN CURSOS / PRODUCTOS ---- */
 .productos {
     padding: 40px;
     text-align: center;
-    background-color: #eaf1fb; 
+    background-color: #eaf1fb;
 }
 
 .productos h2 {
@@ -119,13 +162,24 @@ nav a:hover {
     color: #1e3a8a;
 }
 
+/* Títulos de categoría (Hardware/Software/Ventas) */
+.titulo-categoria {
+    margin-top: 35px;
+    padding: 12px;
+    background: #dbe7ff;
+    border-left: 8px solid #1e3a8a;
+    border-radius: 6px;
+    color: #1e3a8a;
+    text-align: left;
+}
+
 /* GRID DE PRODUCTOS */
 .contenedor-productos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
-    margin-top: 40px;
-    justify-content: center; 
+    margin-top: 30px;
+    justify-content: center;
 }
 
 /* CADA TARJETA DE PRODUCTO */
@@ -133,36 +187,35 @@ nav a:hover {
     background-color: white;
     border-radius: 10px;
     border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     padding: 15px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative; 
-    overflow: hidden; /* ¡Importante para el efecto de zoom! */
-    padding-bottom: 70px; /* Espacio para el botón de 'Comprar' */
+    position: relative;
+    overflow: hidden;
 }
 
-/* Efecto Hover en la tarjeta */
+/* Hover tarjeta */
 .producto:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
 /* IMAGEN DEL PRODUCTO */
 .producto img {
     width: 100%;
     height: 180px;
-    object-fit: cover; 
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
-    transition: transform 0.4s ease-in-out; /* Habilitamos la animación de zoom */
+    transition: transform 0.4s ease-in-out;
 }
 
-/* EFECTO DE ZOOM EN LA IMAGEN */
+/* Zoom imagen */
 .producto:hover img {
-    transform: scale(1.1); /* Aplica el zoom del 10% */
+    transform: scale(1.1);
 }
 
-/* PRECIO Y DESCUENTO (Etiqueta Flotante) */
+/* PRECIO */
 .precio {
     font-weight: bold;
     color: #004aad;
@@ -170,50 +223,66 @@ nav a:hover {
     margin: 10px 0;
 }
 
+/* Etiqueta descuento diagonal */
 .descuento {
-    background-color: #ff7f50; 
+    background-color: #ff7f50;
     color: white;
     padding: 5px 15px;
     font-size: 0.9em;
     font-weight: bold;
-    position: absolute; 
+    position: absolute;
     top: 15px;
-    right: -25px; 
-    transform: rotate(45deg); 
+    right: -25px;
+    transform: rotate(45deg);
     width: 120px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     z-index: 10;
 }
 
-/* Botón de COMPRAR (Posicionado fijo dentro de la tarjeta) */
+/* ===================== */
+/* BOTONES INFO / COMPRAR */
+/* ===================== */
 .producto button {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%; 
-    background-color: #28a745; 
-    padding: 10px;
+    position: static;
+    transform: none;
+    width: auto;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.25s;
 }
 
-.producto button:hover {
+.producto .comprar-btn {
+    background-color: #28a745;
+    color: white;
+    flex: 1;
+}
+.producto .comprar-btn:hover {
     background-color: #1e7e34;
 }
 
-/* NOTA: Se eliminaron las reglas .resumen-overlay {...} */
-
+.producto .info-btn {
+    background-color: #004aad;
+    color: white;
+    flex: 1;
+}
+.producto .info-btn:hover {
+    background-color: #003580;
+}
 
 /* ----- SECCIÓN CONTACTO ----- */
 .contacto {
-    background-color: #3046f1; 
+    background-color: #3046f1;
     padding: 40px;
     text-align: center;
 }
 
 .contacto h2 { color: white; }
 
-#formulario-contacto { 
+#formulario-contacto {
     margin: 20px auto;
     background-color: white;
     width: 90%;
@@ -223,7 +292,6 @@ nav a:hover {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* CAMPOS DEL FORMULARIO */
 input[type="text"], input[type="email"], textarea {
     width: calc(100% - 20px);
     margin: 10px 0;
@@ -233,48 +301,50 @@ input[type="text"], input[type="email"], textarea {
     box-sizing: border-box;
 }
 
-/* Botón de Enviar */
+/* Botón enviar */
 #formulario-contacto button {
     background-color: #004aad;
     width: 100%;
     padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
+#formulario-contacto button:hover { background-color: #003580; }
 
-
-/* ======================================= */
-/* REGLAS PARA EL CARRITO FLOTANTE (Fixed) */
-/* ======================================= */
+/* REGLAS PARA EL CARRITO FLOTANTE  */
 #carrito-flotante {
-    position: fixed; 
+    position: fixed;
     top: 20px;
-    right: 20px; 
-    z-index: 1000; 
+    right: 20px;
+    z-index: 1000;
 }
 
 #mostrar-carrito-btn {
     padding: 10px 15px;
-    background-color: #28a745; 
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.1em;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    width: auto; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    width: auto;
     margin: 0;
 }
 
 #panel-carrito-oculto {
-    display: none; 
-    position: absolute; 
-    right: 0; 
-    top: 55px; 
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
     background-color: white;
     border: 1px solid #004aad;
     border-radius: 8px;
     padding: 20px;
     width: 300px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     text-align: center;
 }
 
@@ -298,15 +368,32 @@ input[type="text"], input[type="email"], textarea {
 #total-carrito {
     font-size: 1.4em;
     font-weight: bold;
-    color: #d9534f; 
+    color: #d9534f;
 }
 
-.boton-alerta { background-color: #d9534f; margin-top: 10px; width: 100%; }
+.boton-alerta {
+    background-color: #d9534f;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
 .boton-alerta:hover { background-color: #c9302c; }
 
-.boton-secundario { background-color: #6c757d; margin-top: 5px; width: 100%; }
+.boton-secundario {
+    background-color: #6c757d;
+    margin-top: 5px;
+    width: 100%;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
 .boton-secundario:hover { background-color: #5a6268; }
-
 
 /* ---- FINAL DE PAGINA ----*/
 footer {
@@ -325,20 +412,45 @@ footer {
 .footer-seccion ul{ list-style: none; padding: 0; }
 .footer-seccion a { color: #f4f4f4; text-decoration: none; transition: color 0.3s; }
 .footer-seccion a:hover { color: #ff7f50; }
-.footer-seccion iframe { border-radius: 10px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+.footer-seccion iframe {
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
 
+/* ===================== */
+/* MODAL INFO (ESTO FALTABA) */
+/* ===================== */
+.modal-info {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;  /* oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
 
-/* ---- Media Queries (Ajuste para móviles) ---- */
-@media (max-width: 768px) {
-    nav ul { flex-direction: column; align-items: center; gap: 10px; }
-    nav a { display: block; text-align: center; padding: 10px; width: 100%; }
-    
-    .Navegacion { top: 46px; } 
+.modal-info.activo {
+    display: flex;  /* se muestra cuando JS agrega "activo" */
+}
 
-    footer { flex-direction: column; align-items: center; text-align: center; }
-    .footer-seccion { max-width: 300px; }
-    .footer-seccion iframe { width: 100%; height: 200px; }
-    
-    #carrito-flotante { top: 10px; right: 10px; }
-    #panel-carrito-oculto { width: 250px; right: 0; }
+.modal-info-content {
+    background: white;
+    max-width: 500px;
+    width: 90%;
+    padding: 20px 25px;
+    border-radius: 12px;
+    position: relative;
+    text-align: left;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.cerrar-modal {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    border: none;
+    background: transparent;
+    font-size: 1.3em;
+    cursor: pointer;
 }

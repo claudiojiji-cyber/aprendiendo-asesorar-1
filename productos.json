@@ -1,0 +1,56 @@
+[
+  {
+    "id": "PC001",
+    "nombre": "Curso: Procesadores",
+    "precio": 12000,
+    "descuento": 10,
+    "imagen": "imagenes/Procesadores.jpg",
+    "descripcion": "Descubre la arquitectura interna, núcleos, hilos y el impacto de la velocidad de reloj en el rendimiento de un CPU moderno.",
+    "categoria": "hardware"
+  },
+  {
+    "id": "PC002",
+    "nombre": "Curso: Memoria RAM",
+    "precio": 9800,
+    "descuento": 15,
+    "imagen": "imagenes/memoria-ram.jpg",
+    "descripcion": "Claves sobre latencia, velocidad y tipos (DDR4, DDR5) para optimizar cualquier sistema operativo y su desempeño en tareas simultáneas.",
+    "categoria": "hardware"
+  },
+  {
+    "id": "PC003",
+    "nombre": "Curso: Placa Madre",
+    "precio": 14500,
+    "descuento": 20,
+    "imagen": "imagenes/motherboard.jpg",
+    "descripcion": "Conoce los sockets, chipsets y cómo elegir la placa base ideal para tu procesador.",
+    "categoria": "hardware"
+  },
+  {
+    "id": "PC004",
+    "nombre": "Curso: Discos SSD",
+    "precio": 11000,
+    "descuento": 5,
+    "imagen": "imagenes/SSD.jpg",
+    "descripcion": "De SATA a NVMe: aprende sobre la tecnología de almacenamiento más rápida y confiable.",
+    "categoria": "hardware"
+  },
+  {
+    "id": "PC005",
+    "nombre": "Curso: Fuentes",
+    "precio": 10500,
+    "descuento": 10,
+    "imagen": "imagenes/Fuente.jpg",
+    "descripcion": "Conceptos de potencia (Watts), eficiencia y certificaciones (80 PLUS).",
+    "categoria": "hardware"
+  },
+  {
+    "id": "PC006",
+    "nombre": "Curso: Placa de Video",
+    "precio": 18000,
+    "descuento": 12,
+    "imagen": "imagenes/Placa-de-video.jpg",
+    "descripcion": "Domina VRAM, bus y diferencias entre NVIDIA y AMD.",
+    "categoria": "hardware"
+  }
+]
