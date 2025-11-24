@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   vaciarCarritoBtn.addEventListener("click", () => vaciarCarrito(listaCarrito, totalCarrito, contadorCarrito));
   document.addEventListener("click", (e) => cerrarPanelFuera(e, panelCarritoOculto));
 
-  // DROPDOWN MOBILE + SUBDROPDOWN
+  // DROPDOWN MOBILE + SUBDROPDOWn
   initDropdownMobile();
 });
 
