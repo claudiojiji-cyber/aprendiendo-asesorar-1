@@ -8,11 +8,12 @@
 </head>
 <body>
 
+    <!-- 🛒 Carrito flotante -->
     <div id="carrito-flotante">
         <button id="mostrar-carrito-btn" aria-label="Mostrar Carrito">
             🛒 (<span id="contador-carrito">0</span>)
         </button>
-        
+
         <div id="panel-carrito-oculto" class="carrito-panel">
             <h2>🛍️ Tu Carrito de Cursos</h2>
             <div id="lista-carrito">
@@ -23,73 +24,163 @@
             <button id="cerrar-carrito-btn" class="boton-secundario">Cerrar</button>
         </div>
     </div>
+
+    <!-- Título principal -->
     <header>
         <h1>Aprendiendo a Asesorar</h1>
     </header>
 
-<main>
-    <section id="inicio" class="banner">
-        <h2>Bienvenido a tu tienda de conocimiento</h2>
-        <p>Aprendé sobre tecnología, ventas y productos de forma simple y clara.</p>
-    </section>
+    <main>
+        <!-- Banner de inicio -->
+        <section id="inicio" class="banner">
+            <h2>Bienvenido a tu tienda de conocimiento</h2>
+            <p>Aprendé sobre tecnología, ventas y productos de forma simple y clara.</p>
+        </section>
 
-    <section id="menu" class="Navegacion">
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li class="dropdown">
-                    <a href="#cursos">Cursos ▼</a>
-                    <ul class="dropdown-content">
-                        <li><a href="#hardware">Hardware</a></li>
-                        <li><a href="#software">Software</a></li>
-                        <li><a href="#ventas">Ventas</a></li>
-                    </ul>
-                </li>
-                <li><a href="#cursos">Todos los Cursos</a></li> 
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </section>
+        <!-- Menú de navegación -->
+        <section id="menu" class="Navegacion">
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
 
-    <section id="cursos" class="productos">
-        <h2>Nuestros Cursos y Productos</h2>
-        <div class="contenedor-productos">
+                    <!-- Dropdown Cursos -->
+                    <li class="dropdown">
+                        <a href="#cursos">Cursos ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#hardware">Hardware</a></li>
+                            <li><a href="#software">Software</a></li>
+                            <li><a href="#ventas">Ventas</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#cursos">Todos los Cursos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <!-- Sección cursos/productos -->
+        <section id="cursos" class="productos">
+            <h2>Nuestros Cursos y Productos</h2>
+
+            <!-- Categoría Hardware -->
+            <h3 id="hardware">🖥️ Hardware</h3>
+            <div class="contenedor-productos">
+
+                <div class="producto">
+                    <img src="IMAGENES/Procesadores_Intel.jpg" alt="Curso Procesadores">
+                    <h3>Curso: Procesadores</h3>
+                    <p>SKU: PC001</p>
+                    <p class="precio">$12.000 <span class="descuento">10% OFF</span></p>
+                    <button class="btn-comprar" data-sku="PC001" data-nombre="Curso: Procesadores" data-precio="12000">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="producto">
+                    <img src="IMAGENES/memoria ram.jpg" alt="Curso Memoria RAM">
+                    <h3>Curso: Memoria RAM</h3>
+                    <p>SKU: PC002</p>
+                    <p class="precio">$9.800 <span class="descuento">15% OFF</span></p>
+                    <button class="btn-comprar" data-sku="PC002" data-nombre="Curso: Memoria RAM" data-precio="9800">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="producto">
+                    <img src="IMAGENES/motherboard.jpg" alt="Curso Placa Madre">
+                    <h3>Curso: Placa Madre</h3>
+                    <p>SKU: PC003</p>
+                    <p class="precio">$14.500 <span class="descuento">20% OFF</span></p>
+                    <button class="btn-comprar" data-sku="PC003" data-nombre="Curso: Placa Madre" data-precio="14500">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="producto">
+                    <img src="IMAGENES/SSD.jpg" alt="Curso Discos SSD">
+                    <h3>Curso: Discos SSD</h3>
+                    <p>SKU: PC004</p>
+                    <p class="precio">$11.000 <span class="descuento">5% OFF</span></p>
+                    <button class="btn-comprar" data-sku="PC004" data-nombre="Curso: Discos SSD" data-precio="11000">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="producto">
+                    <img src="IMAGENES/Fuente.jpg" alt="Curso Fuentes">
+                    <h3>Curso: Fuentes</h3>
+                    <p>SKU: PC005</p>
+                    <p class="precio">$10.500 <span class="descuento">10% OFF</span></p>
+                    <button class="btn-comprar" data-sku="PC005" data-nombre="Curso: Fuentes" data-precio="10500">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="producto">
+                    <img src="IMAGENES/Placa de video.jpg" alt="Curso Placa de Video">
+                    <h3>Curso: Placa de Video</h3>
+                    <p>SKU: PC006</p>
+                    <p class="precio">$18.000 <span class="descuento">12% OFF</span></p>
+                    <button class="btn-comprar" data-sku="PC006" data-nombre="Curso: Placa de Video" data-precio="18000">
+                        Comprar
+                    </button>
+                </div>
+
             </div>
-    </section>
 
-    <section id="contacto" class="contacto">
-        <h2>Dejanos tu opinión</h2>
-        <form id="formulario-contacto">
-            <input type="text" name="Nombre" id="Nombre" placeholder="Ingrese Nombre" required> <br>
-            <input type="email" name="Mail" placeholder="Ingrese Mail" required><br>
-            <textarea rows="8" id="Comentario" placeholder="Ingrese Comentario"></textarea> <br>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-</main>
+            <!-- Categoría Software -->
+            <h3 id="software">💾 Software</h3>
+            <p>Próximamente cursos de software.</p>
 
-<footer>
-    <div class="footer-seccion">
-        <h3>📩 Contacto</h3>
-        <p>capacitaciones@aprendiendoasesorar.com</p>
-        <p>Tel: 1159732118</p>
-    </div>
+            <!-- Categoría Ventas -->
+            <h3 id="ventas">🛒 Ventas</h3>
+            <p>Próximamente cursos de técnicas de venta.</p>
+        </section>
 
-    <div class="footer-seccion">
-        <h3>📍 Ubicación</h3>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3286.3171055133516!2d-58.45454411845751!3d-34.54552568472753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb43ae6018ddf%3A0x3d7f60a75bfa308a!2sEstadio%20Monumental!5e0!3m2!1ses-419!2sar!4v1760297594405!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+        <!-- Formulario contacto -->
+        <section id="contacto" class="contacto">
+            <h2>Dejanos tu opinión</h2>
+            <form id="formulario-contacto">
+                <input type="text" name="Nombre" id="Nombre" placeholder="Ingrese Nombre" required><br>
+                <input type="email" name="Mail" placeholder="Ingrese Mail" required><br>
+                <textarea rows="8" id="Comentario" placeholder="Ingrese Comentario" required></textarea><br>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
 
-    <div class="footer-seccion">
-        <h3>🌐 Redes Sociales</h3>
-        <ul>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Linkedin</a></li>
-        </ul>
-    </div>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-seccion">
+            <h3>📩 Contacto</h3>
+            <p>capacitaciones@aprendiendoasesorar.com</p>
+            <p>Tel: 1159732118</p>
+        </div>
 
-<script src="script.js"></script>
+        <div class="footer-seccion">
+            <h3>📍 Ubicación</h3>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3286.3171055133516!2d-58.45454411845751!3d-34.54552568472753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb43ae6018ddf%3A0x3d7f60a75bfa308a!2sEstadio%20Monumental!5e0!3m2!1ses-419!2sar!4v1760297594405!5m2!1ses-419!2sar"
+                width="400"
+                height="300"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="footer-seccion">
+            <h3>🌐 Redes Sociales</h3>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Linkedin</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
