@@ -80,8 +80,89 @@
       <!-- Categoría Hardware -->
       <h3 id="hardware" class="titulo-categoria">🖥️ Hardware</h3>
 
-      <!-- Contenedor vacío: JS lo llena desde productos.json -->
-      <div class="contenedor-productos"></div>
+      <!-- CONTENEDOR PRODUCTOS -->
+      <!-- Estos productos son BACKUP. El JS los reemplaza por lo del JSON -->
+      <div class="contenedor-productos">
+
+        <div class="producto">
+          <div class="descuento">10% OFF</div>
+          <img src="imagenes/Procesadores.jpg" alt="Curso Procesadores">
+          <h3>Curso: Procesadores</h3>
+          <p>SKU: PC001</p>
+          <p class="precio">$10.800</p>
+
+          <div style="display:flex; gap:8px; justify-content:center;">
+            <button type="button" class="info-btn" data-id="PC001" data-sku="PC001">Info</button>
+            <button type="button" class="comprar-btn" data-id="PC001" data-sku="PC001">Comprar</button>
+          </div>
+        </div>
+
+        <div class="producto">
+          <div class="descuento">15% OFF</div>
+          <img src="imagenes/memoria-ram.jpg" alt="Curso Memoria RAM">
+          <h3>Curso: Memoria RAM</h3>
+          <p>SKU: PC002</p>
+          <p class="precio">$8.330</p>
+
+          <div style="display:flex; gap:8px; justify-content:center;">
+            <button type="button" class="info-btn" data-id="PC002" data-sku="PC002">Info</button>
+            <button type="button" class="comprar-btn" data-id="PC002" data-sku="PC002">Comprar</button>
+          </div>
+        </div>
+
+        <div class="producto">
+          <div class="descuento">20% OFF</div>
+          <img src="imagenes/motherboard.jpg" alt="Curso Placa Madre">
+          <h3>Curso: Placa Madre</h3>
+          <p>SKU: PC003</p>
+          <p class="precio">$11.600</p>
+
+          <div style="display:flex; gap:8px; justify-content:center;">
+            <button type="button" class="info-btn" data-id="PC003" data-sku="PC003">Info</button>
+            <button type="button" class="comprar-btn" data-id="PC003" data-sku="PC003">Comprar</button>
+          </div>
+        </div>
+
+        <div class="producto">
+          <div class="descuento">5% OFF</div>
+          <img src="imagenes/SSD.jpg" alt="Curso Discos SSD">
+          <h3>Curso: Discos SSD</h3>
+          <p>SKU: PC004</p>
+          <p class="precio">$10.450</p>
+
+          <div style="display:flex; gap:8px; justify-content:center;">
+            <button type="button" class="info-btn" data-id="PC004" data-sku="PC004">Info</button>
+            <button type="button" class="comprar-btn" data-id="PC004" data-sku="PC004">Comprar</button>
+          </div>
+        </div>
+
+        <div class="producto">
+          <div class="descuento">10% OFF</div>
+          <img src="imagenes/Fuente.jpg" alt="Curso Fuentes">
+          <h3>Curso: Fuentes</h3>
+          <p>SKU: PC005</p>
+          <p class="precio">$9.450</p>
+
+          <div style="display:flex; gap:8px; justify-content:center;">
+            <button type="button" class="info-btn" data-id="PC005" data-sku="PC005">Info</button>
+            <button type="button" class="comprar-btn" data-id="PC005" data-sku="PC005">Comprar</button>
+          </div>
+        </div>
+
+        <div class="producto">
+          <div class="descuento">12% OFF</div>
+          <img src="imagenes/Placa-de-video.jpg" alt="Curso Placa de Video">
+          <h3>Curso: Placa de Video</h3>
+          <p>SKU: PC006</p>
+          <p class="precio">$15.840</p>
+
+          <div style="display:flex; gap:8px; justify-content:center;">
+            <button type="button" class="info-btn" data-id="PC006" data-sku="PC006">Info</button>
+            <button type="button" class="comprar-btn" data-id="PC006" data-sku="PC006">Comprar</button>
+          </div>
+        </div>
+
+      </div>
 
       <!-- Categoría Software -->
       <h3 id="software" class="titulo-categoria">💾 Software</h3>
@@ -135,7 +216,6 @@
     </div>
   </footer>
 
-  <!-- IMPORTANTE: productos.json debe estar en la misma carpeta -->
   <script src="script.js"></script>
 </body>
 </html>
